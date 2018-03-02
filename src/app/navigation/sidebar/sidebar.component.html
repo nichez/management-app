@@ -1,0 +1,54 @@
+<div class="logo">
+  <a href="https://www.creative-tim.com" class="simple-text">
+    <div class="logo-img">
+      <img src="/assets/img/angular2-logo-red.png"/>
+    </div>
+    <span class="imas-title">IMAS</span>
+  </a>
+</div>
+<div class="sidebar-wrapper">
+  <div class="nav-container">
+    <!--<ul class="nav nav list-group">-->
+      <!--<li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} list-group-item">-->
+        <!--<a  [routerLink]="[menuItem.path]">-->
+          <!--<i class="material-icons">{{menuItem.icon}}</i>-->
+          <!--<p>{{menuItem.title}}</p>-->
+        <!--</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+    <!--<ul class="nav list-group">-->
+      <!--<li class="list-group-item"><a routerLink="home"><span class="accessible-icon" aria-hidden="true"></span><p>Dashboard</p></a></li>-->
+      <!--<li class="list-group-item"><a routerLink="home"><span class="glyphicon glyphicon-equalize" aria-hidden="true"></span><p>Code</p></a></li>-->
+      <!--<li class="list-group-item"><a routerLink="home"><span class="glyphicon glyphicon-th" aria-hidden="true"></span><p>Chrome Reader</p></a></li>-->
+      <!--<li class="list-group-item"><a routerLink="home"><i class="material-icons">account_balance</i><p>Account</p></a></li>-->
+      <!--<li class="list-group-item"><a routerLink="home"><i class="material-icons">android</i><p>Android</p></a></li>-->
+    <!--</ul>-->
+
+    <mat-nav-list routerLinkActive="active">
+      <a mat-list-item routerLink="/home">
+        <mat-icon matListIcon>home</mat-icon>
+        <h3 matLine> Home </h3>
+      </a>
+      <a mat-list-item routerLink="/user">
+        <mat-icon matListIcon>dns</mat-icon>
+        <h3 matLine> User </h3>
+      </a>
+      <a mat-list-item routerLink="/user">
+        <mat-icon matListIcon>folder</mat-icon>
+        <h3 matLine> Team </h3>
+      </a>
+      <a mat-list-item routerLink="/home">
+        <mat-icon matListIcon>folder</mat-icon>
+        <h3 matLine> Role </h3>
+      </a>
+    </mat-nav-list>
+
+    <!--<div class="list-group">-->
+      <!--<a routerLink="/home" class="list-group-item list-group-item-action"><i class="fa fa-align-justify"></i> Home</a>-->
+      <!--<a routerLink="/user" class="list-group-item list-group-item-action"><i class="fa fa-ambulance" aria-hidden="true"></i> Users</a>-->
+      <!--<a routerLink="/home" class="list-group-item list-group-item-action"><i class="fa fa-ban"></i> Roles</a>-->
+      <!--<a routerLink="/user" class="list-group-item list-group-item-action"><i class="fa fa-archive" aria-hidden="true"></i> Archive</a>-->
+    <!--</div>-->
+
+  </div>
+</div>

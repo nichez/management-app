@@ -1,0 +1,10 @@
+mat-icon {
+  color: darkgrey;
+  text-shadow: 2px 2px 2px #ccc;
+  font-size: 1.5em;
+}
+
+h3 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #3C4858;
+}
