@@ -9,7 +9,6 @@ import { SidebarComponent } from './navigation/sidebar/sidebar.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
-import { UserComponent } from './user/user.component';
 import { AuthModule } from './auth/auth.module';
 
 
@@ -18,8 +17,7 @@ import { AuthModule } from './auth/auth.module';
     AppComponent,
     SidebarComponent,
     HeaderComponent,
-    HomeComponent,
-    UserComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,

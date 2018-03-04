@@ -1,12 +1,16 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
         <section class="signup-form">
           <form
             #f="ngForm"
             (ngSubmit)="onSubmit(f)">
+            <div class="alosys-logo">
+              <img src="/assets/img/photo.png"/>
+            </div>
+            <br>
             <mat-form-field>
               <input
                 type="email"
@@ -35,28 +39,13 @@
               <mat-error>Has to be at least 6 characters long.</mat-error>
             </mat-form-field>
             <br>
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Your Birthdate"
-                [matDatepicker]="picker"
-                [max]="maxDate"
-                ngModel
-                name="birthdate"
-                required>
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <br>
-            <mat-checkbox ngModel name="agree" required color="primary">Agree to Terms and Conditions.</mat-checkbox>
+            <mat-checkbox ngModel name="agree" required color="primary">Remember me</mat-checkbox>
             <br>
             <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid" style="text-align: center;">Submit</button>
           </form>
         </section>
       </div>
-      <div class="col-md-4"></div>
+      <div class="col-sm-4"></div>
     </div>
   </div>
 </div>

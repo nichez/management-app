@@ -1,0 +1,64 @@
+<section class="new-user">
+  <form
+    #f="ngForm"
+    (ngSubmit)="onSubmit(f)">
+    <h4>Create new user</h4>
+    <mat-form-field>
+      <input
+        type="text"
+        matInput
+        placeholder="First Name"
+        ngModel
+        name="firstName"
+        required
+        #fName="ngModel">
+      <mat-error *ngIf="fName.hasError('required')">Field must not be empty.</mat-error>
+      <mat-error *ngIf="!fName.hasError('required')">First name is invalid.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input
+        type="text"
+        matInput
+        placeholder="Last Name"
+        ngModel
+        name="lastName"
+        required
+        #lName="ngModel">
+      <mat-error *ngIf="lName.hasError('required')">Field must not be empty.</mat-error>
+      <mat-error *ngIf="!lName.hasError('required')">Last name is invalid.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input
+        type="email"
+        matInput
+        placeholder="Your email"
+        ngModel
+        name="email"
+        email
+        required
+        #emailInput="ngModel">
+      <mat-error *ngIf="emailInput.hasError('required')">Field must not be empty.</mat-error>
+      <mat-error *ngIf="!emailInput.hasError('required')">E-Mail is invalid.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field hintLabel="Should be at least 6 characters long.">
+      <input
+        type="password"
+        matInput
+        placeholder="Your password"
+        ngModel
+        name="password"
+        required
+        minlength="6"
+        #pwInput="ngModel">
+      <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint>
+      <mat-error>Has to be at least 6 characters long.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-checkbox ngModel name="agree" required color="primary">Remember me</mat-checkbox>
+    <br>
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid" style="text-align: center;">Submit</button>
+  </form>
+</section>
