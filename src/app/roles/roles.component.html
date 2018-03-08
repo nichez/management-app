@@ -1,3 +1,14 @@
-<p>
-  roles works!
-</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Roles List</h2>
+        <div *ngFor="let role of roles">
+          {{role.email}} <br>
+          {{role.firstname}} <br>
+          {{role.usersRole.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

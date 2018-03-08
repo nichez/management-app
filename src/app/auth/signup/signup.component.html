@@ -38,9 +38,21 @@
               <mat-error>Has to be at least 6 characters long.</mat-error>
             </mat-form-field>
             <br>
-            <mat-checkbox ngModel name="agree" required color="primary">Remember me</mat-checkbox>
+            <mat-form-field hintLabel="Should be at least 6 characters long.">
+              <input
+                type="text"
+                matInput
+                placeholder="Activation Key"
+                ngModel
+                name="activationKey"
+                required
+                minlength="6"
+                #akInput="ngModel">
+              <mat-error *ngIf="!akInput.hasError('required')">Activation Key is invalid.</mat-error>
+            </mat-form-field>
             <br>
-            <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid" style="text-align: center;">Submit</button>
+            <br>
+            <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid" style="text-align: center;">Complete Registration</button>
           </form>
         </section>
       </div>

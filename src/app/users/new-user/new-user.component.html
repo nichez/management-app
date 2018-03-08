@@ -1,19 +1,17 @@
 <section class="new-user">
   <form
-    #f="ngForm"
-    (ngSubmit)="onSubmit(f)">
+    [formGroup]="userForm"
+    (ngSubmit)="onSubmit()">
     <h4>Create new user</h4>
     <mat-form-field>
       <input
         type="text"
         matInput
         placeholder="First Name"
-        ngModel
-        name="firstName"
-        required
-        #fName="ngModel">
-      <mat-error *ngIf="fName.hasError('required')">Field must not be empty.</mat-error>
-      <mat-error *ngIf="!fName.hasError('required')">First name is invalid.</mat-error>
+        formControlName="firstname">
+      <mat-error>This field is required</mat-error>
+      <!--<mat-error *ngIf="firstname.hasError('required')">Field must not be empty.</mat-error>-->
+      <!--<mat-error *ngIf="!firstname.hasError('required')">First name is invalid.</mat-error>-->
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -21,12 +19,8 @@
         type="text"
         matInput
         placeholder="Last Name"
-        ngModel
-        name="lastName"
-        required
-        #lName="ngModel">
-      <mat-error *ngIf="lName.hasError('required')">Field must not be empty.</mat-error>
-      <mat-error *ngIf="!lName.hasError('required')">Last name is invalid.</mat-error>
+        formControlName="lastname">
+      <mat-error>This field is required</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
@@ -34,31 +28,19 @@
         type="email"
         matInput
         placeholder="Your email"
-        ngModel
-        name="email"
-        email
-        required
-        #emailInput="ngModel">
-      <mat-error *ngIf="emailInput.hasError('required')">Field must not be empty.</mat-error>
-      <mat-error *ngIf="!emailInput.hasError('required')">E-Mail is invalid.</mat-error>
+        formControlName="email">
+      <mat-hint>Please enter a valid email.</mat-hint>
+      <mat-error>Invalid or missing email.</mat-error>
     </mat-form-field>
     <br>
-    <mat-form-field hintLabel="Should be at least 6 characters long.">
-      <input
-        type="password"
-        matInput
-        placeholder="Your password"
-        ngModel
-        name="password"
-        required
-        minlength="6"
-        #pwInput="ngModel">
-      <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint>
-      <mat-error>Has to be at least 6 characters long.</mat-error>
+    <mat-form-field>
+      <mat-select placeholder="Role" formControlName="userRoleId">
+        <mat-option *ngFor="let role of roles" [value]="role.id">
+          {{ role.name }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <br>
-    <mat-checkbox ngModel name="agree" required color="primary">Remember me</mat-checkbox>
-    <br>
-    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid" style="text-align: center;">Submit</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="userForm.invalid" style="text-align: center;">Submit</button>
   </form>
 </section>

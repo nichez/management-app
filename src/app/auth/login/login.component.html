@@ -6,7 +6,7 @@
         <section class="signup-form">
           <form
             #f="ngForm"
-            (ngSubmit)="onSubmit(f)">
+            (ngSubmit)="onLogin()">
             <div class="alosys-logo">
               <img src="/assets/img/photo.png"/>
             </div>
@@ -39,7 +39,7 @@
               <mat-error>Has to be at least 6 characters long.</mat-error>
             </mat-form-field>
             <br>
-            <mat-checkbox ngModel name="agree" required color="primary">Remember me</mat-checkbox>
+            <mat-checkbox ngModel name="rememberMe" required color="primary">Remember me</mat-checkbox>
             <br>
             <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid" style="text-align: center;">Submit</button>
           </form>

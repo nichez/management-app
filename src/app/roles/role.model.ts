@@ -4,5 +4,6 @@ export interface Role {
   id: number;
   name: string;
   description: string;
+  sendEmail: boolean;
   users: User;
 }

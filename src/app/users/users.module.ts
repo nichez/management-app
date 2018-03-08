@@ -6,16 +6,18 @@ import { MaterialModule } from '../material.module';
 import { UsersComponent } from './users.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { NewUserComponent } from './new-user/new-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
-    NewUserComponent
+    NewUserComponent,
+    EditUserComponent
   ],
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
     MaterialModule,
     UsersRoutingModule
   ],

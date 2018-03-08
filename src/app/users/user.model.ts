@@ -2,12 +2,12 @@ import { Role } from '../roles/role.model';
 
 export interface User {
   id: number;
-  firstName: string;
-  lastName: string;
-  userName: string;
+  firstname: string;
+  lastname: string;
   email: string;
+  token: string;
   activationKey: string;
   password: string;
   image: string;
-  role: Role;
+  usersRole: Role;
 }
