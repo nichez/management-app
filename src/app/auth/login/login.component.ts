@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -9,30 +9,31 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  uName: string;
+  pw: string;
 
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', {
-        validators: [Validators.required, Validators.email]
-      }),
-      password: new FormControl('', { validators: [Validators.required] })
-    });
   }
 
-  onLogin() {
-    console.log('User is logged in with mail: ', this.loginForm.value.email);
+  onLogin(form: NgForm) {
+    this.uName = form.value.username;
+    this.pw = form.value.password;
+    console.log('username: ', this.uName);
+    console.log('password: ', this.pw);
 
-      console.log('User is already logged in!', this.loginForm.value.email);
-      this.authService.login(this.loginForm.value.email, this.loginForm.value.password, this.loginForm.value.rememberMe).subscribe(
-        (data) => {
-          console.log(localStorage.getItem('currentUserEmail'));
-          console.log('User is com auth logged in!', this.loginForm.value.email);
-          this.router.navigate(['/users']);
-        }
-      );
-
+    return this.authService.login(this.uName, this.pw).subscribe(
+      response => {
+        console.log('User is loged in');
+        console.log('response: ', response);
+        console.log('response token: ', response.valueOf());
+        // this.authService.setUser(response);
+        this.router.navigate(['/users']);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
+
 }

@@ -19,9 +19,24 @@
                 name="email"
                 email
                 required
+                disabled
+                [(ngModel)]='_email'
                 #emailInput="ngModel">
               <mat-error *ngIf="emailInput.hasError('required')">Field must not be empty.</mat-error>
               <mat-error *ngIf="!emailInput.hasError('required')">E-Mail is invalid.</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+              <input
+                type="text"
+                matInput
+                placeholder="Username"
+                ngModel
+                name="username"
+                required
+                #usernameInput="ngModel">
+              <mat-error *ngIf="usernameInput.hasError('required')">Field must not be empty.</mat-error>
+              <mat-error *ngIf="!usernameInput.hasError('required')">Username is invalid.</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field hintLabel="Should be at least 6 characters long.">
@@ -46,9 +61,10 @@
                 ngModel
                 name="activationKey"
                 required
-                minlength="6"
+                disabled
+                [(ngModel)]='_activationKey'
                 #akInput="ngModel">
-              <mat-error *ngIf="!akInput.hasError('required')">Activation Key is invalid.</mat-error>
+              <!--<mat-error *ngIf="!akInput.hasError('required')">Activation Key is invalid.</mat-error>-->
             </mat-form-field>
             <br>
             <br>

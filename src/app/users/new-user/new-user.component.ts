@@ -38,7 +38,6 @@ export class NewUserComponent implements OnInit {
     console.log('userForm: ', this.userForm.value);
     console.log('userRoleId: ', this.userForm.value.userRoleId);
     if (this.userForm.valid) {
-      console.log('Valid name: ', this.userForm.value.firstname);
       this.router.navigate(['/users']);
       this.usersService.addUser(this.userForm.value).subscribe(
         data => {

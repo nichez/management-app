@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Headers, Response } from '@angular/http';
+import * as jwt_decode from 'jwt-decode';
 
 // Reactive JS
 import 'rxjs/add/operator/do';
@@ -11,142 +12,68 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/debounceTime';
 
 import { User } from '../users/user.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const httpOptions = {
-  headers: new Headers({
-    'Content-Type':  'application/json',
-    'Authorization': ''
-  })
-};
+export const TOKEN_NAME: string = 'jwt_token';
 
 @Injectable()
 export class AuthService {
-  private _email: string;
+  private _username: string;
   private _token: string;
-  private _rememberMe: boolean;
   private _password: string;
 
-  constructor(private http: Http) {
-  }
-
-  private removeUser() {
-    localStorage.removeItem('currentUserEmail');
-    localStorage.removeItem('currentUserToken');
-    localStorage.removeItem('currentUserPassword');
-    localStorage.removeItem('currentUserRemember');
-  }
-
-  login(email: string, password: string, rememberMe: boolean) {
-    const header = new Headers({
-      'Content-Type':  'application/json'
+  private url = 'http://localhost/8080/auth';
+  private headers = new HttpHeaders(
+    {
+      'Content-Type': 'application/json'
     });
-    const dataBody = { email: email, password: password };
-    this._email = email;
-    this._rememberMe = rememberMe;
-    this._password = password;
-    this.setRemember(rememberMe);
-    this.setPassword();
+  private authHeaders = new HttpHeaders(
+    {
+      'Content-Type': 'application/json',
+      'Authorization': 'my-auth-token'
+    });
 
-    return this.http.post('http://localhost:8080/ims/auth/login', dataBody);
+  constructor(private http: Http, private httpClient: HttpClient) {
   }
 
-  logout() {
-    // remove user from local storage to log user out
-    this.removeUser();
-    this.setToken(null);
-    this.setRememberValue(null);
+  // Register User
+  registerUser(user: any): Observable<any> {
+    return this.httpClient.patch<any>('http://localhost:8080/ims/users/registerUser', user);
+  }
+
+  login(username: string, password: string) {
+    this._username = username;
+    this._password = password;
+    const dataBody = {  username: username, password: password }
+
+    return this.httpClient.post('http://localhost:8080/ims/auth/login', dataBody, {headers: this.headers});
+  }
+
+  setUser(user) {
+    localStorage.setItem('currentUserToken', JSON.stringify(user));
+    localStorage.setItem('currentUserName', this._username);
+    localStorage.setItem('currentUserPassword', this._password);
+  }
+
+  setToken(value: string) {
+    this._token = value;
   }
 
   getUser() {
     return {
-      email: localStorage.getItem('currentUserEmail'),
+      username: localStorage.getItem('currentUserName'),
       password: localStorage.getItem('currentUserPassword'),
       token: localStorage.getItem('currentUserToken'),
-      rememberMe: localStorage.getItem('currentUserRemember')
     };
-  }
-  setUser(user) {
-    localStorage.setItem('currentUserToken', JSON.stringify(user));
-    localStorage.setItem('currentUserPassword', this._password);
-    localStorage.setItem('currentUserEmail', this._email);
-    localStorage.setItem('currentUserRemember', this._rememberMe.toString());
-    // console.log(localStorage.getItem('currentUserRemember'));
   }
 
   getToken() {
     const currentUser = JSON.parse(localStorage.getItem('currentUserToken'));
     return currentUser.token;
   }
-  setToken(value: string) {
-    this._token = value;
-  }
-
-  setRemember(value: boolean) {
-    localStorage.setItem('currentUserRemember', value.toString());
-  }
-  setRememberValue(value: boolean) {
-    this._rememberMe = value;
-  }
 
   isAuthenticated() {
     return localStorage.getItem('currentUserToken') != null;
-  }
-
-  isRemembered() {
-    const result = (localStorage.getItem('currentUserRemember') === 'true');
-    return result;
-  }
-
-  private getPassword() {
-    return localStorage.getItem('currentUserPassword');
-  }
-  private setPassword() {
-    localStorage.setItem('currentUserPassword', this._password);
-  }
-
-  catchRequest(response, path, callback) {
-    const data = JSON.parse(response.text());
-    // tslint:disable-next-line:triple-equals
-    if (data.status_code == 401) {
-      this.catchUnauthorizedRequest(path, callback);
-    } else {
-      if (data.message === undefined) {
-        return Observable.throw('Description: CONNECTION TIMED OUT');
-      }
-      return Observable.throw('Description: Problem in request - ' + data.message + ' , '
-        + this.convertObjectToString(data.errors, 'Error'));
-    }
-  }
-
-  private catchUnauthorizedRequest(path, callback) {
-    const user = this.getUser();
-    this.login(user.email, user.password, this.convertStringToBool(user.rememberMe)).subscribe(
-      (data) => callback(path),
-      (error) => {
-        const errorObj = JSON.parse(error.text());
-        return Observable.throw('Description: Problem in async login -> ' + errorObj.message);
-      }
-    );
-  }
-
-  // Helper
-
-  isEmpty(val) {
-    return (val === undefined ||  val === 'null' || val.length <= 0) ? true : false;
-  }
-
-  convertStringToBool(value) {
-    return (value === 'true');
-  }
-
-  convertObjectToString(item: Object, title: string) {
-    let result = title + ': ';
-    for (const key in item) {
-      if (item.hasOwnProperty(key)) {
-        result = result + item[key] + ' ';
-      }
-    }
-    return result;
   }
 
 }
