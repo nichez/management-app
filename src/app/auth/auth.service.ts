@@ -27,10 +27,10 @@ export class AuthService {
     {
       'Content-Type': 'application/json'
     });
-  private authHeaders = new HttpHeaders(
+  public authHeaders = new HttpHeaders(
     {
       'Content-Type': 'application/json',
-      'Authorization': 'my-auth-token'
+      'Authorization': 'Bearer ' + this.getUser().token
     });
 
   constructor(private http: Http, private httpClient: HttpClient) {
@@ -44,7 +44,7 @@ export class AuthService {
   login(username: string, password: string) {
     this._username = username;
     this._password = password;
-    const dataBody = {  username: username, password: password }
+    const dataBody = {  username: username, password: password };
 
     return this.httpClient.post('http://localhost:8080/ims/auth/login', dataBody, {headers: this.headers});
   }
