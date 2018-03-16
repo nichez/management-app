@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['id', 'email', 'firstname', 'role', 'remove'];
+  displayedColumns = ['id', 'email', 'firstname', 'role', 'status', 'remove'];
   dataSource = new MatTableDataSource<User>();
   // private changedSubscription: Subscription;
 
@@ -31,12 +31,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
     });
 
   ngOnInit() {
+    console.log('IS AUTHENTICATED: ', this.authService.isAuthenticated());
     console.log('users ngOnInit: ', localStorage.getItem('currentUserToken'));
     console.log('users ngOnInit u token: ', this.authService.getUser().token);
     console.log('this.token: ', this.token);
     this.usersService.getAllUsers().subscribe(
       (users: User[]) => {
         console.log('users.components.ts', users);
+        console.log('users STATUS', users);
         this.dataSource.data = users;
       }, error => {
         console.log('users.components.ts', error);

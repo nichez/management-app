@@ -9,6 +9,7 @@
     <a routerLink="/login">Change Password</a>
   </div>
   <div style="margin-top: 30px;">
-    <a routerLink="/login">Signout</a>
+    <a *ngIf="authService.isAuthenticated()" routerLink="/login" (click)="logout()">Signout</a>
+    <a *ngIf="!authService.isAuthenticated()" routerLink="/login" (click)="login()">Login</a>
   </div>
 </mat-toolbar>

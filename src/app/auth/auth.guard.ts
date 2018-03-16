@@ -9,9 +9,11 @@ export class AuthGuard implements CanActivate {
     private authService: AuthService) {}
 
   canActivate() {
-    if (!this.authService.isAuthenticated()) {
+    // Allow access if user is authenticated
+    if (this.authService.isAuthenticated()) {
       return true;
     }
+    // not logged in? So redirect to login page
     this.router.navigate(['/login']);
     return false;
   }

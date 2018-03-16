@@ -41,11 +41,32 @@
               <mat-cell *matCellDef="let user"> {{user.usersRole.name}} </mat-cell>
             </ng-container>
 
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef  mat-sort-header> Status </mat-header-cell>
+              <mat-cell *matCellDef="let user"> {{user.usersStatus.name}} </mat-cell>
+            </ng-container>
+
             <!-- Remove Column -->
             <ng-container matColumnDef="remove">
               <mat-header-cell *matHeaderCellDef  mat-sort-header> Remove User </mat-header-cell>
-              <mat-cell *matCellDef="let user"> <button mat-button (click)="onDeleteUser(user.id)"><mat-icon>delete</mat-icon></button> </mat-cell>
+              <mat-cell *matCellDef="let user">
+                <button mat-button (click)="onDeleteUser(user.id)"><mat-icon>delete</mat-icon></button>
+              </mat-cell>
             </ng-container>
+
+            <!-- Edit and Delete Column -->
+            <!--<ng-container matColumnDef="remove">-->
+              <!--<mat-header-cell *matHeaderCellDef  mat-sort-header> </mat-header-cell>-->
+              <!--<mat-cell *matCellDef='let user'>-->
+                <!--<button mat-icon-button color="primary" focusable="false">-->
+                  <!--<i class="fa fa-pencil mat-icon"></i>-->
+                <!--</button>-->
+                <!--<button mat-icon-button color="primary" focusable="false" (click)="onDeleteUser(user.id)">-->
+                  <!--<i class="fa fa-times mat-icon"></i>-->
+                <!--</button>-->
+              <!--</mat-cell>-->
+            <!--</ng-container>-->
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

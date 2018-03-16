@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { UsersService } from '../users.service';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-new-user',
@@ -13,7 +14,7 @@ export class NewUserComponent implements OnInit {
   roles: any[];
   userForm: FormGroup;
 
-  constructor(private usersService: UsersService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private usersService: UsersService, private route: ActivatedRoute, private router: Router, private uiService: UIService) { }
 
   ngOnInit() {
     this.userForm = new FormGroup({
@@ -38,14 +39,15 @@ export class NewUserComponent implements OnInit {
     console.log('userForm: ', this.userForm.value);
     console.log('userRoleId: ', this.userForm.value.userRoleId);
     if (this.userForm.valid) {
-      this.router.navigate(['/users']);
       this.usersService.addUser(this.userForm.value).subscribe(
         data => {
           this.user = data;
           console.log('inside: ', this.user);
           console.log('inside data: ', data);
+          this.router.navigate(['/users']);
         }, error => {
           console.log(error);
+          this.uiService.showSnackbar(error.message, null, 5000);
         }
       );
     }

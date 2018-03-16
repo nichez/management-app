@@ -7,12 +7,14 @@ import { UsersComponent } from './users.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { NewUserComponent } from './new-user/new-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { UploadImageComponent } from './upload-image/upload-image.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
     NewUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    UploadImageComponent
   ],
   imports: [
     CommonModule,

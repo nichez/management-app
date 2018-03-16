@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersService } from './users/users.service';
 import { RolesService } from './roles/roles.service';
 import { AuthService } from './auth/auth.service';
+import { UIService } from './shared/ui.service';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { AuthService } from './auth/auth.service';
   providers: [
     UsersService,
     RolesService,
-    AuthService
+    AuthService,
+    UIService
   ],
   bootstrap: [AppComponent]
 })

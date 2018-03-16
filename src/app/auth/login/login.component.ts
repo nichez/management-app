@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,9 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   uName: string;
   pw: string;
+  rememberME: boolean;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private uiService: UIService) { }
 
   ngOnInit() {
   }
@@ -20,10 +22,12 @@ export class LoginComponent implements OnInit {
   onLogin(form: NgForm) {
     this.uName = form.value.username;
     this.pw = form.value.password;
+    this.rememberME = form.value.rememberMe;
     console.log('username: ', this.uName);
     console.log('password: ', this.pw);
+    console.log('remember me: ', this.rememberME);
 
-    return this.authService.login(this.uName, this.pw).subscribe(
+    return this.authService.login(this.uName, this.pw, this.rememberME).subscribe(
       response => {
         console.log('User is loged in');
         console.log('response: ', response);
@@ -40,9 +44,6 @@ export class LoginComponent implements OnInit {
           return null;
         });
 
-        // this.authService.setUser(JSON.stringify(response));
-        // this.authService.setToken(JSON.stringify(response));
-
         console.log('current Username: ', localStorage.getItem('currentUserName'));
         console.log('current token: ', localStorage.getItem('currentUserToken'));
 
@@ -54,6 +55,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/users']);
       }, error => {
         console.log(error);
+        this.uiService.showSnackbar(error.message, null, 5000);
       }
     );
   }
